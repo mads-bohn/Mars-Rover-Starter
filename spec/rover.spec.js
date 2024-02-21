@@ -9,10 +9,16 @@ const Command = require('../command.js');
 describe("Rover class", function() {
 
   it("constructor sets position and default values for mode and generatorWatts", function () {
-    let testRover = new Rover(500)
+    let testRover = new Rover(500);
     expect(testRover.position).toBe(500);
     expect(testRover.mode).toBe('NORMAL');
     expect(testRover.generatorWatts).toBe(110);
   });
+
+  it("response returned by recieveMessage contains the name of the message", function () {
+    let testRover = new Rover(500);
+    let testResponse = testRover.recieveMessage(new Message('test'));
+    expect(testResponse.message).toBe('test'); 
+  })
 
 });
