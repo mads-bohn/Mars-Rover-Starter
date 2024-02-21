@@ -19,6 +19,14 @@ describe("Rover class", function() {
     let testRover = new Rover(500);
     let testResponse = testRover.recieveMessage(new Message('test'));
     expect(testResponse.message).toBe('test'); 
+  });
+
+  it("response returned by receiveMessage includes two results if two commands are sent in the message", function () {
+    let commands = [new Command('MOVE', 3000), new Command('STATUS_CHECK')];
+    let message = new Message('Test', commands);
+    let rover = new Rover(500);
+    let testResponse = rover.recieveMessage(message);
+    expect(testResponse.results.length).toEqual(2);
   })
 
 });
