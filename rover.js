@@ -17,6 +17,9 @@ class Rover {
       for (let i = 0; i < message.commands.length; i++) {
          if (message.commands[i] == "STATUS_CHECK") {
             //push a roverStatus object to results with mode, watts, and position
+            resultsObject.results.push(message.commands[i]);
+         } else {
+            resultsObject.results.push(message.commands[i]);
          }
       }
       return resultsObject;
