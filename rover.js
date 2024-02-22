@@ -1,26 +1,29 @@
+const Message = require('./message.js');
+const Command = require('./command.js');
+
 class Rover {
    constructor (position, mode='NORMAL', generatorWatts=110) {
       this.position = position;
       this.mode = mode;
       this.generatorWatts = generatorWatts;
    }
+
    recieveMessage(message) {
+      console.log(message.commands);
       let resultsObject = {
          message: message.name,
-         results: message.commands
+         results: []
       };
+      for (let i = 0; i < message.commands.length; i++) {
+         if (message.commands[i] == "STATUS_CHECK") {
+            //push a roverStatus object to results with mode, watts, and position
+         }
+      }
       return resultsObject;
    }
 }
 module.exports = Rover;
 
-// let rover = new Rover(100);
-//     let commands = [
-//        new Command('MOVE', 4321),
-//        new Command('STATUS_CHECK'),
-//        new Command('MODE_CHANGE', 'LOW_POWER'),
-//        new Command('MOVE', 3579),
-//        new Command('STATUS_CHECK')
-//     ];
-//     let message = new Message('TA power', commands);
-//     let response = rover.receiveMessage(message);
+
+
+

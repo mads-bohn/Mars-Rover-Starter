@@ -17,7 +17,8 @@ describe("Rover class", function() {
 
   it("response returned by recieveMessage contains the name of the message", function () {
     let testRover = new Rover(500);
-    let testResponse = testRover.recieveMessage(new Message('test'));
+    let commands = [new Command('MOVE', 3000), new Command('STATUS_CHECK')];
+    let testResponse = testRover.recieveMessage(new Message('test', commands));
     expect(testResponse.message).toBe('test'); 
   });
 
@@ -27,6 +28,10 @@ describe("Rover class", function() {
     let rover = new Rover(500);
     let testResponse = rover.recieveMessage(message);
     expect(testResponse.results.length).toEqual(2);
-  })
+  });
+
+  // it("responds correctly to the status check command", function () {
+
+  // })
 
 });
