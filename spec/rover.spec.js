@@ -15,10 +15,10 @@ describe("Rover class", function() {
     expect(testRover.generatorWatts).toBe(110);
   });
 
-  it("response returned by recieveMessage contains the name of the message", function () {
+  it("response returned by receiveMessage contains the name of the message", function () {
     let testRover = new Rover(500);
     let commands = [new Command('MOVE', 3000), new Command('STATUS_CHECK')];
-    let testResponse = testRover.recieveMessage(new Message('test', commands));
+    let testResponse = testRover.receiveMessage(new Message('test', commands));
     expect(testResponse.message).toBe('test'); 
   });
 
@@ -26,7 +26,7 @@ describe("Rover class", function() {
     let commands = [new Command('MOVE', 3000), new Command('STATUS_CHECK')];
     let message = new Message('Test', commands);
     let rover = new Rover(500);
-    let testResponse = rover.recieveMessage(message);
+    let testResponse = rover.receiveMessage(message);
     expect(testResponse.results.length).toEqual(2);
   });
 
@@ -34,7 +34,7 @@ describe("Rover class", function() {
     let commands = [new Command('STATUS_CHECK')];
     let message = new Message('Test', commands);
     let rover = new Rover(500);
-    let testResponse = rover.recieveMessage(message);
+    let testResponse = rover.receiveMessage(message);
     expect(testResponse.results[0].roverStatus).toStrictEqual({ mode: 'NORMAL', generatorWatts: 110, position: 500 });
   });
 
@@ -42,7 +42,7 @@ describe("Rover class", function() {
     let rover = new Rover(500);
     let commands = [new Command("MODE_CHANGE", "LOW_POWER")];
     let message = new Message('Test', commands);
-    let testResponse = rover.recieveMessage(message);
+    let testResponse = rover.receiveMessage(message);
     expect(testResponse.results).toStrictEqual([ {completed: true} ]);
     expect(rover.mode).toBe('LOW_POWER');
   });
@@ -51,7 +51,7 @@ describe("Rover class", function() {
     let rover = new Rover(500);
     let commands = [new Command("MODE_CHANGE", "LOW_POWER"), new Command("MOVE", 600)];
     let message = new Message('Test', commands);
-    let testResponse = rover.recieveMessage(message);
+    let testResponse = rover.receiveMessage(message);
     expect(testResponse.results[1].completed).toBe(false);
   });
 
@@ -59,7 +59,7 @@ describe("Rover class", function() {
     let rover = new Rover(500);
     let commands = [new Command("MOVE", 678)];
     let message = new Message('Test', commands);
-    rover.recieveMessage(message);
+    rover.receiveMessage(message);
     expect(rover.position).toBe(678);
   });
 });
