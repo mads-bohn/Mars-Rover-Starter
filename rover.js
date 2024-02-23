@@ -9,22 +9,27 @@ class Rover {
    }
 
    recieveMessage(message) {
-      console.log(message.commands);
       let resultsObject = {
          message: message.name,
          results: []
       };
+
       for (let i = 0; i < message.commands.length; i++) {
-         if (message.commands[i] == "STATUS_CHECK") {
-            //push a roverStatus object to results with mode, watts, and position
-            resultsObject.results.push(message.commands[i]);
-         } else {
-            resultsObject.results.push(message.commands[i]);
+         // if message.commands[i] is status check, replace with completed:true and roverstatus object
+         // if message.commands[i] is mode change, update mode and push completed:true
+         if (message.commands[i].commandType == "MODE_CHANGE") {
+            this.mode = message.commands[i].value;
+            resultsObject.results.push({completed: true});
          }
+         // if message.commands[i] is move while in low power, replace with completed:false
+         // if message.commands[i] is move while in normal mode, replace with completed:true
       }
+
       return resultsObject;
-   }
+   };
+      
 }
+ 
 module.exports = Rover;
 
 

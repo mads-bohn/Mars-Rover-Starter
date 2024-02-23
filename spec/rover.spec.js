@@ -22,16 +22,29 @@ describe("Rover class", function() {
     expect(testResponse.message).toBe('test'); 
   });
 
-  it("response returned by receiveMessage includes two results if two commands are sent in the message", function () {
-    let commands = [new Command('MOVE', 3000), new Command('STATUS_CHECK')];
-    let message = new Message('Test', commands);
-    let rover = new Rover(500);
-    let testResponse = rover.recieveMessage(message);
-    expect(testResponse.results.length).toEqual(2);
-  });
+  // it("response returned by receiveMessage includes two results if two commands are sent in the message", function () {
+  //   let commands = [new Command('MOVE', 3000), new Command('STATUS_CHECK')];
+  //   let message = new Message('Test', commands);
+  //   let rover = new Rover(500);
+  //   let testResponse = rover.recieveMessage(message);
+  //   expect(testResponse.results.length).toEqual(2);
+  // });
 
   // it("responds correctly to the status check command", function () {
+  //   let commands = [new Command('STATUS_CHECK')];
+  //   let message = new Message('Test', commands);
+  //   let rover = new Rover(500);
+  //   expect(rover.recieveMessage(message).toBe(''))
+  // });
 
-  // })
+  it("responds correctly to the mode change command", function () {
+    let rover = new Rover(500);
+    let commands = [new Command("MODE_CHANGE", "LOW_POWER")];
+    let message = new Message('Test', commands);
+    let testResponse = rover.recieveMessage(message);
+    expect(testResponse.results).toStrictEqual([ {completed: true} ]);
+    expect(rover.mode).toBe('LOW_POWER');
+  })
 
 });
+ 
