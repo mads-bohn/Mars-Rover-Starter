@@ -28,12 +28,19 @@ class Rover {
                roverStatus: currentRoverStatus
             };
             resultsObject.results.push(statusMessage);
+
          } else if (message.commands[i].commandType == "MODE_CHANGE") {
             this.mode = message.commands[i].value;
             resultsObject.results.push({completed: true});
+
+         } else if (message.commands[i].commandType == "MOVE") {
+            // if in low power, push completed:false to results array
+            if (this.mode === 'LOW_POWER') {
+               resultsObject.results.push({completed: false});
+            }
+            // if message.commands[i] is move while in normal mode, replace with completed:true
          }
-         // if message.commands[i] is move while in low power, replace with completed:false
-         // if message.commands[i] is move while in normal mode, replace with completed:true
+         
       }
 
       return resultsObject;
