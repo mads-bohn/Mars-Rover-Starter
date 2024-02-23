@@ -37,8 +37,11 @@ class Rover {
             // if in low power, push completed:false to results array
             if (this.mode === 'LOW_POWER') {
                resultsObject.results.push({completed: false});
+            } else {
+               //update rover position, push completed: true to results array
+               this.position = message.commands[i].value;
+               resultsObject.results.push({completed: true});
             }
-            // if message.commands[i] is move while in normal mode, replace with completed:true
          }
          
       }
