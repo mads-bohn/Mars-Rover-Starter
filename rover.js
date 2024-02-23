@@ -15,9 +15,20 @@ class Rover {
       };
 
       for (let i = 0; i < message.commands.length; i++) {
-         // if message.commands[i] is status check, replace with completed:true and roverstatus object
-         // if message.commands[i] is mode change, update mode and push completed:true
-         if (message.commands[i].commandType == "MODE_CHANGE") {
+      
+         if (message.commands[i].commandType == "STATUS_CHECK") {
+            //push roverStatus object and completed:true to resultsobject.results
+            let currentRoverStatus = {
+               mode: this.mode,
+               generatorWatts: this.generatorWatts,
+               position: this.position
+            };
+            let statusMessage = {
+               completed: true,
+               roverStatus: currentRoverStatus
+            };
+            resultsObject.results.push(statusMessage);
+         } else if (message.commands[i].commandType == "MODE_CHANGE") {
             this.mode = message.commands[i].value;
             resultsObject.results.push({completed: true});
          }
